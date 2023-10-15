@@ -13,11 +13,6 @@ $(function() {
           }
         }
       });
-
-    // $("#startDate, #endDate").datepicker({
-    //     dateFormat: 'yy-mm-dd',
-    //     maxDate: new Date(),
-    // });
 });
 
 $.ajaxSetup({
@@ -29,7 +24,6 @@ $.ajaxSetup({
 
 function submitForm(){
    let validFlag =  validateForm();
-   //validFlag = true;
    if(validFlag){
     $(".error").text('');
     $('#loader').css('display', 'flex');
@@ -38,7 +32,7 @@ function submitForm(){
         type: 'POST',
         data: $("#companyForm").serialize(),
         success: function(response) {
-            //console.log(response);
+            $("#successMsg,#errorMsg").addClass('d-none');
             $('#loader').css('display', 'none');
             if (response.errors) {
                 $.each(response.errors, function(key, value) {
@@ -48,6 +42,7 @@ function submitForm(){
                 $("#successMsg").text(response.message);
                 $("#successMsg").removeClass('d-none');
                 $('input[type=text], input[type=email]').val('');
+                $("#startDate,#endDate").datepicker("option", "maxDate", new Date());
                 formHtml(response.data.prices);
                 drawChart(response.chartData);
             } else {

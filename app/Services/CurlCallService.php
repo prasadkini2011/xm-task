@@ -8,7 +8,7 @@ class CurlCallService
     {
         // Initialize cURL
         $curl = curl_init();
-
+        
         curl_setopt_array($curl, [
             CURLOPT_URL => $url,
             CURLOPT_RETURNTRANSFER => true,
@@ -17,8 +17,8 @@ class CurlCallService
             CURLOPT_CUSTOMREQUEST => "GET",
             CURLOPT_CAINFO => base_path('cacert.pem'),
             CURLOPT_HTTPHEADER => [
-                "X-RapidAPI-Host:". '',
-                "X-RapidAPI-Key: ". ''
+                "X-RapidAPI-Host:". env('RAPID_HOST'),
+                "X-RapidAPI-Key: ". env('RAPID_KEY')
             ],
         ]);
 
